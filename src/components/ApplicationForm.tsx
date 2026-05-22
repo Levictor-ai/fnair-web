@@ -2,8 +2,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, ChevronLeft, Check, Loader2 } from "lucide-react";
-import { db } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 
 const TOTAL_STEPS = 5;
@@ -43,15 +42,30 @@ export default function ApplicationForm() {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      // Save to Firestore if configured
-      if (db && process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
-        await addDoc(collection(db, "fnair_applications"), {
-          ...formData,
-          createdAt: serverTimestamp(),
-        });
+      if (supabase) {
+        const { error } = await supabase.from("applications").insert([{
+          full_name: formData.fullName,
+          age: formData.age,
+          department: formData.department,
+          level: formData.level,
+          email: formData.email,
+          phone: formData.phone,
+          areas_of_interest: formData.areasOfInterest,
+          past_participation: formData.pastParticipation,
+          current_skills: formData.currentSkills,
+          why_join: formData.whyJoin,
+          what_research_means: formData.whatResearchMeans,
+          problem_of_interest: formData.problemOfInterest,
+          weekly_hours: formData.weeklyHours,
+          consistent_willingness: formData.consistentWillingness,
+          challenges: formData.challenges,
+          concept_explanation: formData.conceptExplanation,
+          final_commitment: formData.finalCommitment,
+        }] as any);
+
+        if (error) throw error;
       }
 
-      // Always send email notification to levictor086@gmail.com
       const res = await fetch("/api/apply", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

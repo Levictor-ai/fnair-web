@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-20 pb-16">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white py-20 md:py-24">
       {/* Background Nodes/Network Effect - Subtle Gray for Light Mode */}
       <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gray-300 rounded-full mix-blend-multiply filter blur-[128px] animate-pulse"></div>

@@ -44,7 +44,7 @@ export default function Contact() {
     "w-full bg-gray-50 border border-gray-200 rounded-md px-4 py-3 text-black focus:outline-none focus:border-blue-primary focus:ring-1 focus:ring-blue-primary transition-colors placeholder:text-gray-400";
 
   return (
-    <footer id="contact" className="bg-gray-50 pt-20 pb-10 border-t border-gray-200 relative overflow-hidden">
+    <footer id="contact" className="bg-gray-50 py-20 md:py-24 border-t border-gray-200 relative overflow-hidden">
       <div className="container mx-auto px-6 max-w-6xl relative z-10">
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           <div>

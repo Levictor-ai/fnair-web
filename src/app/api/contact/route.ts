@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 const RECIPIENT = process.env.EMAIL_TO || "levictor086@gmail.com";
 
@@ -92,34 +92,23 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // If no SMTP credentials, log and return a mock success (for development)
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS || process.env.EMAIL_PASS === "your_gmail_app_password_here") {
+    if (process.env.RESEND_API_KEY && process.env.RESEND_API_KEY !== "re_..." && process.env.RESEND_API_KEY.startsWith("re_")) {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      await resend.emails.send({
+        from: "FNAIR <onboarding@resend.dev>",
+        to: [RECIPIENT],
+        replyTo: email,
+        subject: `New Inquiry from ${name} – FNAIR`,
+        html: buildContactHtml(name, email, message),
+      });
+    } else {
       console.log("──────────────────────────────────────────────────");
-      console.log("[FNAIR Contact] Mock email (SMTP not configured)");
+      console.log("[FNAIR Contact] Mock email (Resend not configured)");
       console.log(`  From   : ${name} <${email}>`);
       console.log(`  To     : ${RECIPIENT}`);
       console.log(`  Message: ${message}`);
       console.log("──────────────────────────────────────────────────");
-      return NextResponse.json({ success: true, mock: true });
     }
-
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || "smtp.gmail.com",
-      port: Number(process.env.SMTP_PORT) || 465,
-      secure: (Number(process.env.SMTP_PORT) || 465) === 465,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"FNAIR Website" <${process.env.EMAIL_USER}>`,
-      to: RECIPIENT,
-      replyTo: email,
-      subject: `New Inquiry from ${name} – FNAIR`,
-      html: buildContactHtml(name, email, message),
-    });
 
     return NextResponse.json({ success: true });
   } catch (err) {

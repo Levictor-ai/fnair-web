@@ -37,7 +37,7 @@ const values = [
 
 export default function CoreValues() {
   return (
-    <section id="values" className="py-24 bg-white relative">
+    <section id="values" className="py-20 md:py-24 bg-white relative">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">Our Core <span className="text-blue-primary">Values</span></h2>
