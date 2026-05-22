@@ -43,16 +43,26 @@ export default function ApplicationForm() {
     e.preventDefault();
     setIsSubmitting(true);
     try {
+      // Save to Firestore if configured
       if (db && process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
         await addDoc(collection(db, "fnair_applications"), {
           ...formData,
           createdAt: serverTimestamp(),
         });
-      } else {
-        // Mock submission (skip real DB since we lack real credentials)
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        console.log("Mock Submitted Data:", formData);
       }
+
+      // Always send email notification to levictor086@gmail.com
+      const res = await fetch("/api/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to send application email.");
+      }
+
       setIsSuccess(true);
     } catch (error) {
       console.error("Error submitting form:", error);
