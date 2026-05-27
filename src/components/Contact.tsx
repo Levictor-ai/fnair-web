@@ -52,12 +52,12 @@ export default function Contact() {
               Connect with <span className="text-blue-primary">FNAIR</span>
             </h2>
             <p className="text-gray-600 mb-8 max-w-md">
-              Have questions about the Founding Cohort or our initiative? Reach out to our coordination team.
+              Have questions about the Cohort or our initiative? Reach out to our coordination team.
             </p>
             <div className="space-y-4 text-gray-700">
               <p className="flex items-center space-x-3">
                 <span className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-primary">@</span>
-                <span className="font-medium">levictor086@gmail.com</span>
+                <span className="font-medium">frontiernexusresearch@gmail.com</span>
               </p>
               <p className="flex items-center space-x-3">
                 <span className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-primary">📍</span>

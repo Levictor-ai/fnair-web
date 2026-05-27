@@ -21,7 +21,7 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <div className="inline-block mb-6 px-4 py-1.5 rounded-full border border-gray-200 bg-gray-50/80 backdrop-blur-sm">
-            <span className="text-gray-600 text-sm font-semibold tracking-widest uppercase">Founding Cohort</span>
+            <span className="text-gray-600 text-sm font-semibold tracking-widest uppercase">Cohort</span>
           </div>
           
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-black mb-6 leading-tight tracking-tight">
@@ -40,7 +40,7 @@ export default function Hero() {
               href="/apply" 
               className="px-8 py-4 rounded-md bg-blue-primary text-white font-semibold hover:bg-blue-700 transition-all duration-300 w-full sm:w-auto shadow-md"
             >
-              Apply for Founding Cohort
+              Apply for Cohort
             </Link>
             <a 
               href="#mission" 

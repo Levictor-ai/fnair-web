@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
-import { Loader2, Download, AlertCircle, Database, Users } from "lucide-react";
+import { Loader2, Download, AlertCircle, Database, Users, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface Application {
   id: string;
@@ -84,6 +85,16 @@ export default function AdminDashboard() {
   const [applications, setApplications] = useState<Application[]>([]);
   const [status, setStatus] = useState<Status>("loading");
   const [errorMsg, setErrorMsg] = useState("");
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      router.refresh();
+    } catch (err) {
+      console.error("Failed to log out", err);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -171,14 +182,23 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          <button
-            onClick={() => downloadCsv(applications)}
-            disabled={applications.length === 0}
-            className="inline-flex items-center space-x-2 px-6 py-3 bg-blue-primary text-white font-semibold rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
-          >
-            <Download className="w-4 h-4" />
-            <span>Export Master CSV</span>
-          </button>
+          <div className="flex items-center space-x-3">
+            <button
+              onClick={() => downloadCsv(applications)}
+              disabled={applications.length === 0}
+              className="inline-flex items-center space-x-2 px-6 py-3 bg-blue-primary text-white font-semibold rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+            >
+              <Download className="w-4 h-4" />
+              <span>Export Master CSV</span>
+            </button>
+            <button
+              onClick={handleLogout}
+              className="inline-flex items-center space-x-2 px-4 py-3 bg-white border border-gray-300 text-gray-700 font-semibold rounded-md hover:bg-gray-50 transition-colors shadow-sm"
+            >
+              <LogOut className="w-4 h-4" />
+              <span className="hidden sm:inline">Logout</span>
+            </button>
+          </div>
         </div>
 
         {applications.length === 0 ? (

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const RECIPIENT = process.env.EMAIL_TO || "levictor086@gmail.com";
+const RECIPIENT = process.env.EMAIL_TO || "frontiernexusresearch@gmail.com";
 
 function buildContactHtml(name: string, email: string, message: string): string {
   return `

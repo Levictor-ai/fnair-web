@@ -13,9 +13,9 @@ export default function ApplyPage() {
         
         <div className="text-center mb-12">
           <span className="text-blue-primary font-bold tracking-widest uppercase mb-4 text-sm block">Join The Nexus</span>
-          <h1 className="text-3xl md:text-5xl font-bold text-black mb-4">Founding Cohort <span className="text-blue-primary">Application</span></h1>
+          <h1 className="text-3xl md:text-5xl font-bold text-black mb-4">Cohort <span className="text-blue-primary">Application</span></h1>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-            We are seeking intellectually curious, highly disciplined students and emerging scholars for our founding cohort.
+            We are seeking intellectually curious, highly disciplined students and emerging scholars for our cohort.
           </p>
         </div>
         
